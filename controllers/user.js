@@ -18,7 +18,7 @@ module.exports.showLoginForm = async (req, res) => {
 module.exports.showUsers = async (req, res) => {
   let users;
   if (!req.user.role.includes("سوبر أدمين")) {
-    users = await User.find({ role: "مستثمر", archived: false });
+    users = await User.find({ role: "مستثمر" });
   } else {
     users = await User.find({});
   }
@@ -136,9 +136,7 @@ module.exports.deleteUser = async (req, res) => {
         if (hasCaises) {
           req.flash("error", "لا يمكن الحذف المستثمر لديه باقة سارية");
         } else {
-          document.archived = true;
-
-          await User.findByIdAndUpdate(document.id, { archived: true });
+          await User.findByIdAndUpdate(document.id, { approved: false });
           req.flash("success", "تم الحذف بنجاح");
         }
       } else {

@@ -7,7 +7,7 @@ const User = require("../models/user");
 module.exports.caseList = async (req, res) => {
   const packs = await Pack.find({state:"مفعلة"});
   const caisses = await Case.find({}).populate(["user", "pack"]);
-  const users = await User.find({ role: "مستثمر" });
+  const users = await User.find({ role: "مستثمر",approved:true });
   var ref_id = crypto.randomBytes(4).toString("hex").toUpperCase();
   const year = moment().format("YY");
   ref_id = ref_id + year;
@@ -71,7 +71,7 @@ module.exports.createProfits = async (req, res) => {
 };
 module.exports.showCreationForm = async (req, res) => {
   const packs = await Pack.find({state:"مفعلة"});
-  const users = await User.find({ role: "مستثمر" });
+  const users = await User.find({ role: "مستثمر",approved: true});
   var ref_id = crypto.randomBytes(4).toString("hex").toUpperCase();
   const year = moment().format("YY");
   ref_id = ref_id + year;

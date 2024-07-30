@@ -35,7 +35,8 @@
         <th scope="row"><%= i%> <% i=i+1; %></th>
 
         <td scope="row">
-          <%= user.fullname%> <% if(!user.approved) {%>
+          <%= user.fullname%> 
+          <% if(!user.approved) {%>
           <span class="badge bg-lightCoral">معطل</span>
           <% } %>
         </td>

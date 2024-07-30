@@ -27,7 +27,16 @@ module.exports.showUpdateForm = async (req, res) => {
   res.send("Update Pack Form");
 };
 module.exports.updatePack = async (req, res) => {
-  res.send("Update Pack");
+  const { id } = req.params;
+  const { pack } = req.body;
+  if (pack.state === "on") {
+    pack.state = "مفعلة";
+  } else {
+    pack.state = "غير مفعلة";
+  }
+  await Pack.findByIdAndUpdate(id, {...pack }, { new: true });
+  req.flash("success", "تم التعديل بنجاح");
+  res.redirect("/pack");
 };
 module.exports.deletePack = async (req, res) => {
   const { id } = req.params;
