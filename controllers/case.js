@@ -5,13 +5,13 @@ const Pack = require("../models/pack");
 const User = require("../models/user");
 
 module.exports.caseList = async (req, res) => {
-  const packs = await Pack.find({state:"مفعلة"});
+  const packs = await Pack.find({ state: "مفعلة" });
   const caisses = await Case.find({}).populate(["user", "pack"]);
-  const users = await User.find({ role: "مستثمر",approved:true });
+  const users = await User.find({ role: "مستثمر", approved: true });
   var ref_id = crypto.randomBytes(4).toString("hex").toUpperCase();
   const year = moment().format("YY");
   ref_id = ref_id + year;
-  res.render("case/index", { packs,caisses, moment, users, ref_id });
+  res.render("case/index", { packs, caisses, moment, users, ref_id });
 };
 module.exports.showUserMain = async (req, res) => {
   const { id } = req.params;
@@ -62,7 +62,9 @@ module.exports.createProfits = async (req, res) => {
   await Case.findByIdAndUpdate(
     caisse.profitsId,
     {
-      profit: caisse.amount,
+      // profit: caisse.amount,
+      $inc: { profit: caisse.amount },
+      // $set: { field1: { $add: ["$profit", "$actualprofitls"] } },
       state: "منتهية",
     },
     { new: true }
@@ -70,8 +72,8 @@ module.exports.createProfits = async (req, res) => {
   res.redirect("/profits");
 };
 module.exports.showCreationForm = async (req, res) => {
-  const packs = await Pack.find({state:"مفعلة"});
-  const users = await User.find({ role: "مستثمر",approved: true});
+  const packs = await Pack.find({ state: "مفعلة" });
+  const users = await User.find({ role: "مستثمر", approved: true });
   var ref_id = crypto.randomBytes(4).toString("hex").toUpperCase();
   const year = moment().format("YY");
   ref_id = ref_id + year;
@@ -116,9 +118,12 @@ module.exports.showUsersCase = async (req, res) => {
 module.exports.updateCase = async (req, res) => {
   const { id } = req.params;
   const { caisse } = req.body;
-
   await Case.findByIdAndUpdate(id, { ...caisse }, { new: true });
-  req.flash("success", "تم التعديل بنجاح");
+  if (req.query.p) {
+    req.flash("success", "تم تعديل الاربــــاح");
+  } else {
+    req.flash("success", "تم التعديل بنجاح");
+  }
   res.redirect("back");
 };
 
@@ -127,4 +132,11 @@ module.exports.deleteCase = async (req, res) => {
   await Case.findByIdAndDelete(id);
   req.flash("success", "تم الحذف بنجاح");
   res.redirect("/case");
+};
+module.exports.AddInstanteProfit = async (req, res) => {
+  const { id } = req.params;
+  const { caisse } = req.body;
+  await Case.findByIdAndUpdate(id, { ...caisse }, { new: true });
+  req.flash("success", "تم تعديل الاربــــاح");
+  res.redirect("back");
 };

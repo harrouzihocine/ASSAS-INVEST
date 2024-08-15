@@ -71,7 +71,8 @@
               class="form-select border border-success"
             >
               <option selected disabled value="">الوحدة</option>
-              <% for(unit of units) {%> <% if(pack.unite==unit) {%>
+              <% for(unit of units) {%>
+                <% if(pack.unite==unit) {%>
               <option class="option" value="<%= unit %>" selected>
                 <%= unit %>
               </option>
