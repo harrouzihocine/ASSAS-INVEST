@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate')%>
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-outline-greenSea bg-gradient px-2 py-1 me-2"
+  data-bs-toggle="modal"
+  data-bs-target="#ncaisse-profit-<%= caisse.id %>"
+>
+<i class="bi bi-coin"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="ncaisse-profit-<%= caisse.id %>"
+  data-bs-backdrop="static"
+  data-bs-keyboard="true"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          إعلان أرباح الحالية
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="row p-2 needs-validation"
+          action="case/<%= caisse.id %>?p=up&_method=PUT"
+          method="POST"
+        >
+          <div class="form-floating mb-3">
+            <input
+              class="form-control border border-success"
+              type="number"
+              id="Amount"
+              name="caisse[actualprofitls]"
+              value="<%= caisse.actualprofitls %>"
+              placeholder=" العائدات الحالية"
+              required
+            />
+            <label for="Amount" class="form-labelfs-6">العائدات الحالية:</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              إلغاء
+            </button>
+            <button class="btn btn-outline-warning">تعديل</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

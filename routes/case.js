@@ -13,6 +13,7 @@ const {
   showCase,
   updateCase,
   deleteCase,
+  AddInstanteProfit,
 } = require("../controllers/case");
 router
   .route("/")

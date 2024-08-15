@@ -11,7 +11,7 @@
       <div class="row d-flex">
         <div class="col-sm-6 col-lg-2 d-flex m-auto">
           <h2 class="col-sm-12 col-lg-6"><%=caisse.user.fullname.toUpperCase() %></h2>
-          <% if(caisse.state == "منتهية" && caisse.restCase >0){ %>
+          <% if(caisse.state == "منتهية" && caisse.restCase >0 && currentUser.id == caisse.user.id ){ %>
           <div class="col-sm-12 col-md-12 col-lg-6 ms-2"><%- include("./newmodel",{caisse}) %></div>
           <% } %>
         </div>

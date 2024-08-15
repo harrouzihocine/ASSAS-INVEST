@@ -168,8 +168,10 @@
         <% } %>
 
         <td class="d-flex justify-content-center align-items-center">
-          <%- include("./caseDetail") %> <%- include("./edit") %> <%-
-          include("./delete") %>
+          <%- include("./caseDetail") %> <%if(caisse.state!="منتهية"){%> <%-
+          include("./declareProfits") %> <% } %> <%if(caisse.state=="نشطة"){%>
+          <%- include("./edit") %> <% } %>
+          <%- include("./delete") %>
         </td>
       </tr>
       <%}%>

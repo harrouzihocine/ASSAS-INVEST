@@ -22,6 +22,18 @@ module.exports.locals = async (req, res, next) => {
       return result;
     }
   }
+  async function countCases() {
+    try {
+      const cases = await Case.find({ state: "قيد الإنتظار" })
+        .populate(["user", "pack"])
+        .exec();
+
+      return cases.length;
+    } catch (err) {
+      console.error(err);
+      return 0;
+    }
+  }
   async function UnreadMAdmin() {
     if (req.user && req.user.role.includes("أدمين")) {
       let result = 0;
@@ -44,21 +56,18 @@ module.exports.locals = async (req, res, next) => {
       return result;
     }
   }
-
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.bgColor = "bg-dark";
   res.locals.textColor = "text-dark";
   res.locals.now = moment().format("YYYY");
-  res.locals.announceProfits = await Case.countDocuments({
-    state: "قيد الإنتظار",
-  });
+  res.locals.announceProfits = await countCases();
   // res.locals.announceProfits = async () => {
   //   const nbr = await Case.find({ state: "قيد الإنتظار" })
   //     .populate(["user", "pack"])
   //     .count();
-
+  //   // console.log("announceProfits :", nbr);
   //   return nbr;
   // };
 

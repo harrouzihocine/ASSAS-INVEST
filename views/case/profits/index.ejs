@@ -78,7 +78,7 @@
           class="clickable"
           onclick="window.location='/withdraw/<%=caisse.id%>'"
         >
-          <%= caisse.profit.toLocaleString('de-DE', { minimumFractionDigits: 2
+          <%= (caisse.profit+caisse.actualprofitls).toLocaleString('de-DE', { minimumFractionDigits: 2
           }) %> دج
         </td>
         <td
