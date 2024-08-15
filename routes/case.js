@@ -24,6 +24,8 @@ router
   .get(isLoggedIn, catchAsync(showCase))
   .put(isLoggedIn, isAdmin, catchAsync(updateCase))
   .delete(isLoggedIn, isAdmin, catchAsync(deleteCase));
+  
+router.route("/:id/profit").put(isLoggedIn, isAdmin, catchAsync(updateCase));
 router.route("/:id/cases").get(isLoggedIn, catchAsync(showUserCases));
 router.route("/:id/edit").get(isLoggedIn, isAdmin, catchAsync(showUpdateForm));
 router.route("/:id/main").get(isLoggedIn, catchAsync(showUserMain));
