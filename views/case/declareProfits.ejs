@@ -2,16 +2,19 @@
 <!-- Button trigger modal -->
 <button
   type="button"
+
   class="btn btn-outline-greenSea bg-gradient px-2 py-1 me-2"
   data-bs-toggle="modal"
   data-bs-target="#ncaisse-profit-<%= caisse.id %>"
 >
 <i class="bi bi-coin"></i>
+
 </button>
 
 <!-- Modal -->
 <div
   class="modal fade"
+
   id="ncaisse-profit-<%= caisse.id %>"
   data-bs-backdrop="static"
   data-bs-keyboard="true"
@@ -35,7 +38,9 @@
       <div class="modal-body">
         <form
           class="row p-2 needs-validation"
+
           action="case/<%= caisse.id %>?p=up&_method=PUT"
+
           method="POST"
         >
           <div class="form-floating mb-3">
