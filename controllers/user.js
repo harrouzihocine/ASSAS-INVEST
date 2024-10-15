@@ -157,13 +157,14 @@ module.exports.sendEmail = async (req, res) => {
   const { email } = req.body;
   // generate a reset token for the user, save it to the database
   try {
+    const createdAt = moment();
     const user = await User.findOneAndUpdate(
       { email: email },
       {
         resetToken: {
           token: generateResetToken(),
-          createdAt: moment(),
-          expires: moment(moment().add(1, "d")),
+          createdAt: createdAt,
+          expires: moment(createdAt.add(1, "days")),
         },
       },
       { new: true }
